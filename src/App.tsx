@@ -25,7 +25,7 @@ export const App = () => {
       <Route element={<MainLayout />}>
         <Route path="/" element={<HomeView />} />
         <Route path="/movies">
-          <Route path="category" element={<MoviesView />} />
+          <Route path="category/:category" element={<MoviesView />} />
           <Route path=":id" element={<MovieView />}>
             <Route path="credits" element={<CreditsView />} />
             <Route path="trailers" element={<TrailersView />} />
@@ -33,7 +33,7 @@ export const App = () => {
           </Route>
         </Route>
         <Route path="/tv">
-          <Route path="category" element={<TelevisionView />} />
+          <Route path="category/:category" element={<TelevisionView />} />
           <Route path=":id" element={<MovieView />}>
             <Route path="seasons" element={<SeasonsView />} />
             <Route path="season/:season" element={<EpisodeView />} />
@@ -42,8 +42,8 @@ export const App = () => {
             <Route path="reviews" element={<ReviewsView />} />
           </Route>
         </Route>
-        <Route path="/trending" element={<TrendingView />} />
-        <Route path="/genre" element={<GenreView />} />
+        <Route path="/trending/:category" element={<TrendingView />} />
+        <Route path="/genre/:category/:genre" element={<GenreView />} />
         <Route path="/search" element={<SearchView />} />
         <Route path="/person/id:" element={<PersonView />}>
           <Route path="career" element={<CareerView />} />
