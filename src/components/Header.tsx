@@ -5,6 +5,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 export const Header = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const type = searchParams.get('type') || 'movie';
+
   return (
     <header>
       <nav className="flex p-4 bg-purple-950 justify-between">
@@ -40,7 +41,7 @@ export const Header = () => {
           />
         </div>
       </nav>
-      <div className="h-1 bg-cyan-600"></div>
+      <div className="h-1 bg-cyan-600" />
     </header>
   );
 };

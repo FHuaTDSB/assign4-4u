@@ -18,7 +18,7 @@ export const Link = ({ children, to, match = [] }: LinkProps) => {
       className={({ isActive }) =>
         `px-4 py-2 rounded-md transition-all duration-200 flex items-center ${
           isActive || matched
-            ? 'bg-cyan-500 text-white shadow-lg scale-105'
+            ? 'bg-cyan-600 text-white shadow-lg scale-105'
             : 'bg-fuchsia-800 text-fuchsia-200 hover:bg-fuchsia-600 hover:text-white'
         }`
       }
