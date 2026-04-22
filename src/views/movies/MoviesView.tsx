@@ -1,16 +1,39 @@
-import { API_KEY, MOVIE_ENDPOINT } from '@/core/constants';
+import { LinkGroup, Pagination } from '@/components';
+import { Gallery } from '@/components/Gallery';
+import { MOVIE_ENDPOINT } from '@/core/constants';
 import type { MoviesResponse } from '@/core/types';
-import { useTmdb } from '@/hooks/useTMDB';
+import { useTmdb } from '@/hooks/useTmdb';
 import { useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export const MoviesView = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState<number>(1);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const category = searchParams.get('category') || 'now_playing';
+  const category = 'now_playing';
   const { data } = useTmdb<MoviesResponse>(`${MOVIE_ENDPOINT}/${category}`, { page }, [page]);
-  console.log(import.meta.env.SOME_KEY)
+  const gridData = (data?.results ?? []).map((result) => ({
+    id: result.id,
+    imagePath: result.poster_path,
+    primaryText: result.original_title,
+  }));
+  console.log(useLocation())
 
-  return <></>;
+  if (!data) {
+    return <p className="text-center text-gray-400">Loading...</p>;
+  }
+
+  return (
+    <section className="py-5 px-10 flex flex-col gap-4">
+      <LinkGroup
+        options={[
+          { label: 'Now Playing', to: '/movies/category/now_playing' },
+          { label: 'Popular', to: '/movies/category/popular' },
+          { label: 'Top Rated', to: '/movies/category/top_rated' },
+          { label: 'Upcoming', to: '/movies/category/upcoming' },
+        ]}
+      />
+      <Gallery results={gridData} onClick={(id) => navigate(`/movie/${id}/credits`)} />
+      <Pagination page={page} maxPages={data.total_pages} onClick={setPage} />
+    </section>
+  );
 };

@@ -4,3 +4,4 @@ export * from '@/components/Footer';
 export * from '@/components/Header';
 export * from '@/components/Link';
 export * from '@/components/LinkGroup';
+export * from '@/components/Pagination';
