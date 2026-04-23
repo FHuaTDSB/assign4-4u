@@ -1,25 +1,26 @@
 import { LinkGroup, Pagination } from '@/components';
-import { Gallery } from '@/components/Gallery';
+import { Gallery } from '@/components';
 import { MOVIE_ENDPOINT } from '@/core/constants';
 import type { MoviesResponse } from '@/core/types';
-import { useTmdb } from '@/hooks/useTmdb';
+import { useTmdb } from '@/hooks';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 export const MoviesView = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState<number>(1);
-  const category = 'now_playing';
+  const location = useLocation()
+  const category: string = location.pathname.slice(location.pathname.lastIndexOf("/") + 1);
   const { data } = useTmdb<MoviesResponse>(`${MOVIE_ENDPOINT}/${category}`, { page }, [page]);
   const gridData = (data?.results ?? []).map((result) => ({
     id: result.id,
     imagePath: result.poster_path,
     primaryText: result.original_title,
   }));
-  console.log(useLocation())
+  console.log(category)
 
   if (!data) {
-    return <p className="text-center text-gray-400">Loading...</p>;
+    return <p className="text-center text-cyan-700">Loading...</p>;
   }
 
   return (

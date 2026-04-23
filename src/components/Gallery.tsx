@@ -12,11 +12,11 @@ type GalleryProps = {
 
 export const Gallery = ({ results, onClick }: GalleryProps) => {
   return (
-    <div className="grid grid-cols-[repeat(auto-fill,_minmax(180px,1fr))] gap-5">
+    <div className="grid grid-cols-[repeat(auto-fill,_minmax(200px,1fr))] gap-5">
       {results.map((result) => (
         <div
           key={result.id}
-          className="block bg-gray-800 rounded-lg overflow-hidden cursor-pointer hover:scale-[1.02] transition"
+          className="block bg-blue-900 text-cyan-300 rounded-lg overflow-hidden cursor-pointer hover:scale-[1.02] hover:bg-fuchsia-700 hover:text-white transition"
           onClick={() => onClick?.(result.id)}
         >
           <img className="w-full h-[280px] object-cover" src={`${IMAGE_BASE_URL}${result.imagePath}`} alt={result.primaryText} />

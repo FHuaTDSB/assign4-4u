@@ -18,7 +18,7 @@ export const Header = () => {
             options={[
               { label: 'Movies', to: '/movies/category/now_playing', match: ['/movies'] },
               { label: 'TV', to: '/tv/category/airing_today', match: ['/tv'] },
-              { label: 'Trending', to: '/trending/movies?interval=day' },
+              { label: 'Trending', to: '/trending/movie?interval=day', match: ['/trending'] },
               { label: 'Genre', to: '/genre/movies/action', match: ['/genre'] },
             ]}
           />

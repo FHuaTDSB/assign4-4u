@@ -1,4 +1,3 @@
-import { Route, Routes } from 'react-router-dom';
 import { MainLayout } from '@/layouts/MainLayout';
 import {
   CareerView,
@@ -18,14 +17,15 @@ import {
   TrailersView,
   TrendingView,
 } from '@/views';
+import { Route, Routes } from 'react-router-dom';
 
 export const App = () => {
   return (
     <Routes>
       <Route element={<MainLayout />}>
         <Route path="/" element={<HomeView />} />
-        <Route path="/movies" element={<MoviesView />}>
-          <Route path="category/:category" />
+        <Route path="/movies/category/:category" Component={() => <MoviesView key={window.location.pathname} />}>
+        <Route path="/movie" />
           <Route path=":id" element={<MovieView />}>
             <Route path="credits" element={<CreditsView />} />
             <Route path="trailers" element={<TrailersView />} />
@@ -33,7 +33,7 @@ export const App = () => {
           </Route>
         </Route>
         <Route path="/tv">
-          <Route path="category/:category" element={<TelevisionView />} />
+          <Route path="category/:category" Component={() => <TelevisionView key={window.location.pathname} />} />
           <Route path=":id" element={<MovieView />}>
             <Route path="seasons" element={<SeasonsView />} />
             <Route path="season/:season" element={<EpisodeView />} />
@@ -42,7 +42,7 @@ export const App = () => {
             <Route path="reviews" element={<ReviewsView />} />
           </Route>
         </Route>
-        <Route path="/trending/:category" element={<TrendingView />} />
+        <Route path="/trending/:category" Component={() => <TrendingView key={window.location.pathname} />} />
         <Route path="/genre/:category/:genre" element={<GenreView />} />
         <Route path="/search" element={<SearchView />} />
         <Route path="/person/id:" element={<PersonView />}>
