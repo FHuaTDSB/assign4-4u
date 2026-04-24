@@ -5,4 +5,5 @@ export * from '@/components/Gallery';
 export * from '@/components/Header';
 export * from '@/components/Link';
 export * from '@/components/LinkGroup';
+export * from '@/components/Modal';
 export * from '@/components/Pagination';

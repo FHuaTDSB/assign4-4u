@@ -10,15 +10,15 @@ export const TrendingView = () => {
   const [page, setPage] = useState<number>(1);
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
-  const category: string = location.pathname.slice(location.pathname.lastIndexOf('/') + 1);
+  const media: string = location.pathname.slice(location.pathname.lastIndexOf('/') + 1);
   const interval = searchParams.get('interval') || 'day';
-  const { data } = useTmdb<MoviesResponse | TvResponse>(`${TRENDING_ENDPOINT}/${category}/${interval}`, { page, time_window: interval }, [
+  const { data } = useTmdb<MoviesResponse | TvResponse>(`${TRENDING_ENDPOINT}/${media}/${interval}`, { page, time_window: interval }, [
     page,
     interval,
   ]);
 
   const gridData =
-    category == 'movie'
+    media == 'movie'
       ? (data?.results ?? []).map((result) => ({
           id: result.id,
           imagePath: result.poster_path,
@@ -36,7 +36,7 @@ export const TrendingView = () => {
 
   return (
     <section className="py-5 px-10 flex flex-col gap-4">
-      <div className="flex justify-between">
+      <div className="flex justify-between items-start">
         <LinkGroup
           options={[
             { label: 'Movie', to: '/trending/movie?interval=day' },
@@ -52,7 +52,7 @@ export const TrendingView = () => {
           onClick={(value) => setSearchParams({ interval: value })}
         />
       </div>
-      <Gallery results={gridData} onClick={(id) => navigate(`/${category}/${id}/${category == 'movie' ? 'credits' : 'seasons'}`)} />
+      <Gallery results={gridData} onClick={(id) => navigate(`/${media}/${id}/${media == 'movie' ? 'credits' : 'seasons'}`)} />
       <Pagination page={page} maxPages={data.total_pages} onClick={setPage} />
     </section>
   );

@@ -24,14 +24,12 @@ export const App = () => {
     <Routes>
       <Route element={<MainLayout />}>
         <Route path="/" element={<HomeView />} />
-        <Route path="/movies/category/:category" Component={() => <MoviesView key={window.location.pathname} />}>
-        <Route path="/movie" />
-          <Route path=":id" element={<MovieView />}>
+        <Route path="/movies/category/:category" Component={() => <MoviesView key={window.location.pathname} />} />
+        <Route path="/movie/:id" element={<MovieView />}>
             <Route path="credits" element={<CreditsView />} />
             <Route path="trailers" element={<TrailersView />} />
             <Route path="reviews" element={<ReviewsView />} />
           </Route>
-        </Route>
         <Route path="/tv">
           <Route path="category/:category" Component={() => <TelevisionView key={window.location.pathname} />} />
           <Route path=":id" element={<MovieView />}>
@@ -42,8 +40,8 @@ export const App = () => {
             <Route path="reviews" element={<ReviewsView />} />
           </Route>
         </Route>
-        <Route path="/trending/:category" Component={() => <TrendingView key={window.location.pathname} />} />
-        <Route path="/genre/:category/:genre" element={<GenreView />} />
+        <Route path="/trending/:media" Component={() => <TrendingView key={window.location.pathname} />} />
+        <Route path="/genre/:media/:genre" element={<GenreView />} />
         <Route path="/search" element={<SearchView />} />
         <Route path="/person/id:" element={<PersonView />}>
           <Route path="career" element={<CareerView />} />
