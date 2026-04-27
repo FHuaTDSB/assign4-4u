@@ -1,17 +1,32 @@
 import { LinkGroup, Modal } from '@/components';
-import { type MovieResponse, IMAGE_BASE_URL, MOVIE_ENDPOINT, ORIGINAL_IMAGE_BASE_URL } from "@/core";
+import { type MediaResponse, IMAGE_BASE_URL, MOVIE_ENDPOINT, ORIGINAL_IMAGE_BASE_URL, TV_ENDPOINT } from '@/core';
 import { useTmdb } from '@/hooks';
 import { FaCalendarAlt } from 'react-icons/fa';
-import { Outlet, useNavigate, useParams } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 
 export const MovieView = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  let media = location.pathname.slice(location.pathname.indexOf('/') + 1);
+  media = media.slice(0, media.indexOf('/'));
   const { id } = useParams();
-  const { data } = useTmdb<MovieResponse>(`${MOVIE_ENDPOINT}/${id}`, { append_to_response: 'videos' }, [id]);
-
-  const trailerVideo =
-    data?.videos?.results.find((v) => v.site === 'YouTube' && v.type === 'Trailer' && v.name?.toLowerCase().includes('official')) ||
-    data?.videos?.results.find((v) => v.site === 'YouTube' && v.type === 'Trailer');
+  const { data } =
+    media == 'movie'
+      ? useTmdb<MediaResponse>(`${MOVIE_ENDPOINT}/${id}`, {}, [id])
+      : useTmdb<MediaResponse>(`${TV_ENDPOINT}/${id}`, {}, [id]);
+  const links =
+    media == 'movie'
+      ? [
+          { label: 'Credits', to: 'credits' },
+          { label: 'Trailers', to: 'trailers' },
+          { label: 'Reviews', to: 'reviews' },
+        ]
+      : [
+          { label: 'Seasons', to: 'seasons' },
+          { label: 'Credits', to: 'credits' },
+          { label: 'Trailers', to: 'trailers' },
+          { label: 'Reviews', to: 'reviews' },
+        ];
 
   if (!data) {
     return <p className="text-center text-gray-400">Loading...</p>;
@@ -35,21 +50,8 @@ export const MovieView = () => {
               {data.release_date}
             </p>
             <p className="text-gray-300">{data.overview}</p>
-            {trailerVideo && (
-              <div className="aspect-video">
-                <iframe
-                  className="w-full h-full rounded-xl"
-                  src={`https://www.youtube.com/embed/${trailerVideo.key}`}
-                  title="Movie Trailer"
-                  allowFullScreen
-                />
-              </div>
-            )}
             <LinkGroup
-              options={[
-                { label: 'Credits', to: 'credits' },
-                { label: 'Reviews', to: 'reviews' },
-              ]}
+              options={links}
             />
           </div>
         </div>

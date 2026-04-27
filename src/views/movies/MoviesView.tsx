@@ -27,10 +27,10 @@ export const MoviesView = () => {
     <section className="py-5 px-10 flex flex-col gap-4">
       <LinkGroup
         options={[
-          { label: 'Now Playing', to: '/movies/category/now_playing' },
-          { label: 'Popular', to: '/movies/category/popular' },
-          { label: 'Top Rated', to: '/movies/category/top_rated' },
-          { label: 'Upcoming', to: '/movies/category/upcoming' },
+          { label: 'Now Playing', to: '/movie/category/now_playing' },
+          { label: 'Popular', to: '/movie/category/popular' },
+          { label: 'Top Rated', to: '/movie/category/top_rated' },
+          { label: 'Upcoming', to: '/movie/category/upcoming' },
         ]}
       />
       <Gallery results={gridData} onClick={(id) => navigate(`/movie/${id}/credits`)} />

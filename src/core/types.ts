@@ -22,7 +22,7 @@ export type Genre = {
   id: number;
 };
 
-export type MovieResponse = {
+export type MediaResponse = {
   id: number;
   title: string;
   overview: string;

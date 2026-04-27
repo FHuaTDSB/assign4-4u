@@ -24,12 +24,14 @@ export const App = () => {
     <Routes>
       <Route element={<MainLayout />}>
         <Route path="/" element={<HomeView />} />
-        <Route path="/movies/category/:category" Component={() => <MoviesView key={window.location.pathname} />} />
-        <Route path="/movie/:id" element={<MovieView />}>
+        <Route path="/movie">
+          <Route path="category/:category" Component={() => <MoviesView key={window.location.pathname} />} />
+          <Route path=":id" element={<MovieView />}>
             <Route path="credits" element={<CreditsView />} />
             <Route path="trailers" element={<TrailersView />} />
             <Route path="reviews" element={<ReviewsView />} />
           </Route>
+        </Route>
         <Route path="/tv">
           <Route path="category/:category" Component={() => <TelevisionView key={window.location.pathname} />} />
           <Route path=":id" element={<MovieView />}>

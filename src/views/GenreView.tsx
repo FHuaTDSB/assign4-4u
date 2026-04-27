@@ -46,7 +46,7 @@ export const GenreView = () => {
   ]);
   const genreLinks =
     media == 'movie'
-      ? movieGenres.map((movieGenre) => ({ label: movieGenre.label, to: `/genre/movie/${movieGenre.name}` }))
+      ? movieGenres.map((movieGenre) => ({ label: movieGenre.label, to: `/genre/movies/${movieGenre.name}` }))
       : tvGenres.map((tvGenre) => ({ label: tvGenre.label, to: `/genre/tv/${tvGenre.name}` }));
 
   const gridData =
