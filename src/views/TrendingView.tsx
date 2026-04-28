@@ -1,6 +1,6 @@
 import { ButtonGroup, Gallery, LinkGroup, Pagination } from '@/components';
 import { TRENDING_ENDPOINT } from '@/core/constants';
-import type { MoviesResponse, TvResponse } from '@/core/types';
+import type { ImageCell, MoviesResponse, TvResponse } from '@/core/types';
 import { useTmdb } from '@/hooks';
 import { useState } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
@@ -17,7 +17,7 @@ export const TrendingView = () => {
     interval,
   ]);
 
-  const gridData =
+  const gridData: ImageCell[] =
     media == 'movie'
       ? (data?.results ?? []).map((result) => ({
           id: result.id,
@@ -52,7 +52,7 @@ export const TrendingView = () => {
           onClick={(value) => setSearchParams({ interval: value })}
         />
       </div>
-      <Gallery results={gridData} onClick={(id) => navigate(`/${media}/${id}/${media == 'movie' ? 'credits' : 'seasons'}`)} />
+      <Gallery results={gridData} onClick={(item) => navigate(`/${media}/${item.id}/${media == 'movie' ? 'credits' : 'seasons'}`)} />
       <Pagination page={page} maxPages={data.total_pages} onClick={setPage} />
     </section>
   );

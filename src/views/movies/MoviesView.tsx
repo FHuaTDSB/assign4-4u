@@ -1,7 +1,6 @@
-import { LinkGroup, Pagination } from '@/components';
-import { Gallery } from '@/components';
+import { Gallery, LinkGroup, Pagination } from '@/components';
 import { MOVIE_ENDPOINT } from '@/core/constants';
-import type { MoviesResponse } from '@/core/types';
+import type { ImageCell, MoviesResponse } from '@/core/types';
 import { useTmdb } from '@/hooks';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -9,15 +8,15 @@ import { useLocation, useNavigate } from 'react-router-dom';
 export const MoviesView = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState<number>(1);
-  const location = useLocation()
-  const category: string = location.pathname.slice(location.pathname.lastIndexOf("/") + 1);
+  const location = useLocation();
+  const category: string = location.pathname.slice(location.pathname.lastIndexOf('/') + 1);
   const { data } = useTmdb<MoviesResponse>(`${MOVIE_ENDPOINT}/${category}`, { page }, [page]);
-  const gridData = (data?.results ?? []).map((result) => ({
+  const gridData: ImageCell[] = (data?.results ?? []).map((result) => ({
     id: result.id,
     imagePath: result.poster_path,
     primaryText: result.original_title,
   }));
-  console.log(category)
+  console.log(category);
 
   if (!data) {
     return <p className="text-center text-cyan-700">Loading...</p>;
@@ -33,7 +32,7 @@ export const MoviesView = () => {
           { label: 'Upcoming', to: '/movie/category/upcoming' },
         ]}
       />
-      <Gallery results={gridData} onClick={(id) => navigate(`/movie/${id}/credits`)} />
+      <Gallery results={gridData} onClick={(item) => navigate(`/movie/${item.id}/credits`)} />
       <Pagination page={page} maxPages={data.total_pages} onClick={setPage} />
     </section>
   );

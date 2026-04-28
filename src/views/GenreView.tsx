@@ -46,7 +46,7 @@ export const GenreView = () => {
   ]);
   const genreLinks =
     media == 'movie'
-      ? movieGenres.map((movieGenre) => ({ label: movieGenre.label, to: `/genre/movies/${movieGenre.name}` }))
+      ? movieGenres.map((movieGenre) => ({ label: movieGenre.label, to: `/genre/movie/${movieGenre.name}` }))
       : tvGenres.map((tvGenre) => ({ label: tvGenre.label, to: `/genre/tv/${tvGenre.name}` }));
 
   const gridData =
@@ -75,7 +75,7 @@ export const GenreView = () => {
         ]}
       />
       <LinkGroup options={genreLinks} />
-      <Gallery results={gridData} onClick={(id) => navigate(`/${media}/${id}/${media == 'movie' ? 'credits' : 'seasons'}`)} />
+      <Gallery results={gridData} onClick={(item) => navigate(`/${media}/${item.id}/${media == 'movie' ? 'credits' : 'seasons'}`)} />
       <Pagination page={page} maxPages={data.total_pages} onClick={setPage} />
     </section>
   );

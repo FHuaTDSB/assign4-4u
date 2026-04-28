@@ -16,8 +16,14 @@ export type TvResponse = {
   total_pages: number;
 };
 
+export type ImageCell = {
+  id: number;
+  imagePath: string;
+  primaryText: string;
+};
+
 export type Genre = {
-  name: string
+  name: string;
   label: string;
   id: number;
 };
