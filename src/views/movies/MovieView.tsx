@@ -1,14 +1,13 @@
-import { LinkGroup, Modal } from '@/components';
-import { type MediaResponse, IMAGE_BASE_URL, MOVIE_ENDPOINT, ORIGINAL_IMAGE_BASE_URL, TV_ENDPOINT } from '@/core';
+import { DetailItem, LinkGroup, Modal } from '@/components';
+import { type MediaResponse, getBackdropUrl, getImageUrl, MOVIE_ENDPOINT, TV_ENDPOINT } from '@/core';
 import { useTmdb } from '@/hooks';
-import { FaCalendarAlt } from 'react-icons/fa';
+import { FaCalendar, FaStar } from 'react-icons/fa';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 
 export const MovieView = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  let media = location.pathname.slice(location.pathname.indexOf('/') + 1);
-  media = media.slice(0, media.indexOf('/'));
+  const media = location.pathname.slice(location.pathname.indexOf('/') + 1, location.pathname.indexOf('/') + 2) == 'm' ? 'movie' : 'tv';
   const { id } = useParams();
   const { data } =
     media == 'movie'
@@ -34,28 +33,21 @@ export const MovieView = () => {
 
   return (
     <Modal onClick={() => navigate(-1)}>
-      <div className="p-5 space-y-5">
-        <div
-          className="h-[420px] bg-cover bg-center rounded-2xl"
-          style={{
-            backgroundImage: `url(${ORIGINAL_IMAGE_BASE_URL}${data.backdrop_path})`,
-          }}
-        />
-        <div className="flex gap-8">
-          <img className="w-[220px] h-[330px] object-cover rounded-xl" src={`${IMAGE_BASE_URL}${data.poster_path}`} alt={data.title} />
-          <div className="flex-1 space-y-4">
+      <div className="grid grid-rows-[auto_1fr] h-full">
+        <img className="w-full h-[240px] object-cover rounded-2xl" src={getBackdropUrl(data.backdrop_path)} alt={data.title} />
+        <div className="grid grid-cols-[auto_1fr] gap-5 p-5 min-h-0">
+          <img className="w-[200px] object-cover rounded-xl" src={getImageUrl(data.poster_path)} alt={data.title} />
+          <div className="overflow-y-auto space-y-4">
             <h1 className="text-3xl font-bold">{data.title}</h1>
-            <p className="text-gray-400 flex items-center gap-2">
-              <FaCalendarAlt />
-              {data.release_date}
-            </p>
-            <p className="text-gray-300">{data.overview}</p>
-            <LinkGroup
-              options={links}
-            />
+            <p className="text-gray-300 leading-relaxed">{data.overview}</p>
+            <div className="grid grid-cols-2 gap-4 pt-2">
+              <DetailItem label="Release" value={data.release_date} icon={<FaCalendar />} />
+              <DetailItem label="Rating" value={data.vote_average} icon={<FaStar />} />
+            </div>
+            <LinkGroup options={links} />
+            <Outlet />
           </div>
         </div>
-        <Outlet />
       </div>
     </Modal>
   );

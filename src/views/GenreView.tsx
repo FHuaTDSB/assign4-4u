@@ -18,7 +18,7 @@ export const GenreView = () => {
     { name: 'mystery', label: 'Mystery', id: 9648 },
     { name: 'sci-fi', label: 'Sci-Fi', id: 878 },
   ];
-  const tvGenres = [
+  const tvGenres: Genre[] = [
     { name: 'action', label: 'Action', id: 10759 },
     { name: 'animation', label: 'Animation', id: 16 },
     { name: 'comedy', label: 'Comedy', id: 35 },
@@ -34,7 +34,7 @@ export const GenreView = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState<number>(1);
   const location = useLocation();
-  const media = location.pathname.slice(location.pathname.indexOf('genre') + 6, location.pathname.lastIndexOf('/'));
+  const media: string = location.pathname.slice(location.pathname.indexOf('genre') + 6, location.pathname.lastIndexOf('/'));
   const genre: string = location.pathname.slice(location.pathname.lastIndexOf('/') + 1);
   const findGenre = (value) => {
     return value.name == genre;
