@@ -3,7 +3,7 @@ import { GENRE_ENDPOINT } from '@/core/constants';
 import type { Genre, MoviesResponse, TvResponse } from '@/core/types';
 import { useTmdb } from '@/hooks';
 import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export const GenreView = () => {
   const movieGenres: Genre[] = [
@@ -33,9 +33,7 @@ export const GenreView = () => {
 
   const navigate = useNavigate();
   const [page, setPage] = useState<number>(1);
-  const location = useLocation();
-  const media: string = location.pathname.slice(location.pathname.indexOf('genre') + 6, location.pathname.lastIndexOf('/'));
-  const genre: string = location.pathname.slice(location.pathname.lastIndexOf('/') + 1);
+  const { media, genre } = useParams();
   const findGenre = (value) => {
     return value.name == genre;
   };

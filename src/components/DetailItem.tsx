@@ -8,7 +8,7 @@ type DetailItemProps = {
 
 export const DetailItem = ({ label, value, icon }: DetailItemProps) => {
   return (
-    <div className="bg-gray-800/60 rounded-lg p-3 flex gap-2 items-center">
+    <div className="bg-blue-800/60 rounded-lg p-3 flex gap-2 items-center">
       {icon}
       <div>
         <p className="text-xs text-gray-400">{label}</p>

@@ -20,6 +20,7 @@ export type ImageCell = {
   id: number;
   imagePath: string;
   primaryText: string;
+  secondaryText?: string;
 };
 
 export type Genre = {
@@ -68,4 +69,31 @@ export type TrailersResponse = {
     site: string;
     type: string;
   }>;
+};
+
+export type SeasonsResponse = {
+  seasons: Array<{
+    name: string;
+    poster_path: string;
+    season_number: number;
+  }>;
+};
+
+export type EpisodesResponse = {
+  episodes: Array<{
+    air_date: string;
+    id: number;
+    name: string;
+    still_path: string;
+  }>;
+  season_number: number;
+};
+
+export type PersonResponse = {
+  id: number;
+  name: string;
+  profile_path: string;
+  place_of_birth: string;
+  birthday: string;
+  biography: string;
 };

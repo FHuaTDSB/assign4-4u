@@ -21,7 +21,7 @@ export const MovieView = () => {
           { label: 'Reviews', to: 'reviews' },
         ]
       : [
-          { label: 'Seasons', to: 'seasons' },
+          { label: 'Seasons', to: 'seasons', match: ['/tv/:id/season/:season'] },
           { label: 'Credits', to: 'credits' },
           { label: 'Trailers', to: 'trailers' },
           { label: 'Reviews', to: 'reviews' },

@@ -3,14 +3,13 @@ import { TRENDING_ENDPOINT } from '@/core/constants';
 import type { ImageCell, MoviesResponse, TvResponse } from '@/core/types';
 import { useTmdb } from '@/hooks';
 import { useState } from 'react';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
 export const TrendingView = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState<number>(1);
   const [searchParams, setSearchParams] = useSearchParams();
-  const location = useLocation();
-  const media: string = location.pathname.slice(location.pathname.lastIndexOf('/') + 1);
+  const { media } = useParams();
   const interval = searchParams.get('interval') || 'day';
   const { data } = useTmdb<MoviesResponse | TvResponse>(`${TRENDING_ENDPOINT}/${media}/${interval}`, { page, time_window: interval }, [
     page,

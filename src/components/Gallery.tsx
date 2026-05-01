@@ -2,12 +2,7 @@ import type { ImageCell } from '@/core';
 import { IMAGE_BASE_URL } from '@/core/constants';
 
 type GalleryProps = {
-  results: Array<{
-    id: number;
-    imagePath: string | null;
-    primaryText: string;
-    secondaryText?: string;
-  }>;
+  results: ImageCell[];
   onClick?: (id: ImageCell) => void;
 };
 

@@ -45,7 +45,7 @@ export const App = () => {
         <Route path="/trending/:media" Component={() => <TrendingView key={window.location.pathname} />} />
         <Route path="/genre/:media/:genre" element={<GenreView />} />
         <Route path="/search" element={<SearchView />} />
-        <Route path="/person/id:" element={<PersonView />}>
+        <Route path="/person/:id" element={<PersonView />}>
           <Route path="career" element={<CareerView />} />
           <Route path="images" element={<ImagesView />} />
         </Route>

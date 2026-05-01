@@ -16,7 +16,6 @@ export const MoviesView = () => {
     imagePath: result.poster_path,
     primaryText: result.original_title,
   }));
-  console.log(category);
 
   if (!data) {
     return <p className="text-center text-cyan-700">Loading...</p>;
