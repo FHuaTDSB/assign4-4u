@@ -12,12 +12,12 @@ export const TelevisionView = () => {
   const location = useLocation()
   const category: string = location.pathname.slice(location.pathname.lastIndexOf("/") + 1);
   const { data } = useTmdb<TvResponse>(`${TV_ENDPOINT}/${category}`, { page }, [page]);
+  
   const gridData: ImageCell[] = (data?.results ?? []).map((result) => ({
     id: result.id,
     imagePath: result.poster_path,
     primaryText: result.original_name,
   }));
-  console.log(category)
 
   if (!data) {
     return <p className="text-center text-cyan-700">Loading...</p>;

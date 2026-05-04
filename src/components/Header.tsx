@@ -5,13 +5,12 @@ import { Link, useNavigate } from 'react-router-dom';
 type HeaderProps = {
   query: string;
   onChange: (value: string) => void;
-  searchParams: URLSearchParams;
-  setSearchParams: (value: URLSearchParams) => void;
+  setType: (value: string) => void;
+  type: string;
 };
 
-export const Header = ({ query, onChange, searchParams, setSearchParams }: HeaderProps) => {
+export const Header = ({ query, onChange, setType, type }: HeaderProps) => {
   const navigate = useNavigate();
-  const type = searchParams.get('type') || 'movie';
 
   return (
     <header>
@@ -49,7 +48,7 @@ export const Header = ({ query, onChange, searchParams, setSearchParams }: Heade
               { label: 'TV', value: 'tv' },
               { label: 'Person', value: 'person' },
             ]}
-            onClick={(value) => setSearchParams({ type: value })}
+            onClick={(value) => setType(value)}
           />
         </div>
       </nav>

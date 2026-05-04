@@ -97,3 +97,12 @@ export type PersonResponse = {
   birthday: string;
   biography: string;
 };
+
+export type PeopleResponse = {
+  results: Array<{
+    id: number;
+    name: string;
+    profile_path: string;
+  }>;
+  total_pages: number;
+};
