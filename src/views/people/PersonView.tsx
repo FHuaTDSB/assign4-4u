@@ -1,10 +1,11 @@
-import { DetailItem, LinkGroup } from '@/components';
+import { Button, DetailItem, LinkGroup } from '@/components';
 import { getImageUrl, PERSON_ENDPOINT, type PersonResponse } from '@/core';
 import { useTmdb } from '@/hooks';
-import { FaCalendar, FaStar } from 'react-icons/fa';
-import { Outlet, useParams } from 'react-router-dom';
+import { FaCalendar, FaLongArrowAltLeft, FaStar } from 'react-icons/fa';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
 export const PersonView = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const { data } = useTmdb<PersonResponse>(`${PERSON_ENDPOINT}/${id}`, {}, [id]);
 
@@ -14,6 +15,13 @@ export const PersonView = () => {
 
   return (
     <div className="grid grid-rows-[auto_1fr] min-h-full text-gray-100 w-3/4 justify-self-center">
+      <div className="p-5 pb-0">
+        <Button onClick={() => navigate(-1)}>
+          <div className="flex items-center gap-2">
+            <FaLongArrowAltLeft /> Back
+          </div>
+        </Button>
+      </div>
       <div className="grid grid-cols-[auto_1fr] gap-5 p-5 min-h-0">
         <img className="w-[200px] object-cover rounded-xl" src={getImageUrl(data.profile_path)} alt={data.name} />
         <div className="overflow-y-auto space-y-4">

@@ -1,9 +1,16 @@
 import { ButtonGroup } from '@/components/ButtonGroup';
 import { LinkGroup } from '@/components/LinkGroup';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-export const Header = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+type HeaderProps = {
+  query: string;
+  onChange: (value: string) => void;
+  searchParams: URLSearchParams;
+  setSearchParams: (value: URLSearchParams) => void;
+};
+
+export const Header = ({ query, onChange, searchParams, setSearchParams }: HeaderProps) => {
+  const navigate = useNavigate();
   const type = searchParams.get('type') || 'movie';
 
   return (
@@ -28,6 +35,11 @@ export const Header = () => {
             type="search"
             className="flex-1 p-2 rounded-xl bg-indigo-950
                    focus:outline-none focus:ring-2 focus:ring-fuchsia-600 transition"
+            value={query}
+            onChange={(event) => {
+              onChange(event.target.value);
+              navigate('/search');
+            }}
             placeholder="Search..."
           />
           <ButtonGroup

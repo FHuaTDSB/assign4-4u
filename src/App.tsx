@@ -17,12 +17,21 @@ import {
   TrailersView,
   TrendingView,
 } from '@/views';
-import { Route, Routes } from 'react-router-dom';
+import { useState } from 'react';
+import { Route, Routes, useSearchParams } from 'react-router-dom';
+import { RATE_LIMIT_DELAY } from './core';
+import { useDebounce } from './hooks';
 
 export const App = () => {
+  const [query, setQuery] = useState('');
+  const debouncedQuery = useDebounce(query, RATE_LIMIT_DELAY);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchType = searchParams.get('type')
+  console.log(searchType);
+
   return (
     <Routes>
-      <Route element={<MainLayout />}>
+      <Route element={<MainLayout query={query} setQuery={setQuery} searchParams={searchParams} setSearchParams={setSearchParams}/>}>
         <Route path="/" element={<HomeView />} />
         <Route path="/movie">
           <Route path="category/:category" Component={() => <MoviesView key={window.location.pathname} />} />
@@ -44,7 +53,7 @@ export const App = () => {
         </Route>
         <Route path="/trending/:media" Component={() => <TrendingView key={window.location.pathname} />} />
         <Route path="/genre/:media/:genre" element={<GenreView />} />
-        <Route path="/search" element={<SearchView />} />
+        <Route path="/search" element={<SearchView query={debouncedQuery} />} />
         <Route path="/person/:id" element={<PersonView />}>
           <Route path="career" element={<CareerView />} />
           <Route path="images" element={<ImagesView />} />
