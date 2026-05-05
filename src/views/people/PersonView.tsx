@@ -31,7 +31,12 @@ export const PersonView = () => {
             <DetailItem label="Place of Birth" value={data.place_of_birth} icon={<FaStar />} />
           </div>
           <p className="text-gray-300 leading-relaxed">{data.biography}</p>
-          <LinkGroup options={[]} />
+          <LinkGroup
+            options={[
+              { label: 'Career', to: 'career' },
+              { label: 'Images', to: 'images' },
+            ]}
+          />
           <Outlet />
         </div>
       </div>

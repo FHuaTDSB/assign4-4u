@@ -17,7 +17,7 @@ export const Gallery = ({ results, onClick }: GalleryProps) => {
         >
           <img className="w-full h-[280px] object-cover" src={`${IMAGE_BASE_URL}${result.imagePath}`} alt={result.primaryText} />
           <div className="p-3 text-center">
-            <p className="text-sm font-semibold truncate">{result.primaryText}</p>
+            {result.primaryText && <p className="text-sm font-semibold truncate">{result.primaryText}</p>}
             {result.secondaryText && <p className="text-gray-400 text-xs">{result.secondaryText}</p>}
           </div>
         </div>

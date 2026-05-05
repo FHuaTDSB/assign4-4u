@@ -5,11 +5,11 @@ import { Link, useNavigate } from 'react-router-dom';
 type HeaderProps = {
   query: string;
   onChange: (value: string) => void;
-  setType: (value: string) => void;
+  setSearchParams: (value: URLSearchParams) => void;
   type: string;
 };
 
-export const Header = ({ query, onChange, setType, type }: HeaderProps) => {
+export const Header = ({ query, onChange, setSearchParams, type }: HeaderProps) => {
   const navigate = useNavigate();
 
   return (
@@ -37,7 +37,7 @@ export const Header = ({ query, onChange, setType, type }: HeaderProps) => {
             value={query}
             onChange={(event) => {
               onChange(event.target.value);
-              navigate('/search');
+              navigate(`/search?type=${type}`);
             }}
             placeholder="Search..."
           />
@@ -48,7 +48,7 @@ export const Header = ({ query, onChange, setType, type }: HeaderProps) => {
               { label: 'TV', value: 'tv' },
               { label: 'Person', value: 'person' },
             ]}
-            onClick={(value) => setType(value)}
+            onClick={(value) => setSearchParams({ type: value })}
           />
         </div>
       </nav>

@@ -26,14 +26,11 @@ export const App = () => {
   const [query, setQuery] = useState('');
   const debouncedQuery = useDebounce(query, RATE_LIMIT_DELAY);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [type, setType] = useState<string>(searchParams.get('type') || 'movie');
-  if (type != searchParams.get('type')) {
-    setSearchParams({ type: type });
-  }
+  const type = (searchParams.get('type') || 'movie');
 
   return (
     <Routes>
-      <Route element={<MainLayout query={query} setQuery={setQuery} setType={setType} type={type} />}>
+      <Route element={<MainLayout query={query} setQuery={setQuery} setSearchParams={setSearchParams} type={type} />}>
         <Route path="/" element={<HomeView />} />
         <Route path="/movie">
           <Route path="category/:category" Component={() => <MoviesView key={window.location.pathname} />} />

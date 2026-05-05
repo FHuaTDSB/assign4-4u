@@ -4,15 +4,15 @@ import { Outlet } from 'react-router-dom';
 type MainLayoutProps = {
   query: string;
   setQuery: (value: string) => void;
-  setType: (value: string) => void;
+  setSearchParams: (value: URLSearchParams) => void;
   type: string
 };
 
-export const MainLayout = ({ query, setQuery, setType, type }: MainLayoutProps) => {
+export const MainLayout = ({ query, setQuery, setSearchParams, type }: MainLayoutProps) => {
   return (
     <>
       <div className="min-h-screen bg-indigo-950 text-fuchsia-400">
-        <Header query={query} onChange={setQuery} setType={setType} type={type}/>
+        <Header query={query} onChange={setQuery} setSearchParams={setSearchParams} type={type}/>
         <main>
           <Outlet />
         </main>

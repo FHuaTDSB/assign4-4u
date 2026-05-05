@@ -19,7 +19,7 @@ export type TvResponse = {
 export type ImageCell = {
   id: number;
   imagePath: string;
-  primaryText: string;
+  primaryText?: string;
   secondaryText?: string;
 };
 
@@ -105,4 +105,19 @@ export type PeopleResponse = {
     profile_path: string;
   }>;
   total_pages: number;
+};
+
+export type CareerResponse = {
+  cast: Array<{
+    id: number;
+    original_title: string;
+    poster_path: string;
+  }>;
+  total_pages: number;
+};
+
+export type ImagesResponse = {
+  profiles: Array<{
+    file_path: string;
+  }>;
 };
