@@ -1,3 +1,14 @@
+import { Button } from "@/components";
+import { useNavigate } from "react-router-dom";
+
 export const ErrorView = () => {
-  return <div className="min-h-screen bg-indigo-950 text-fuchsia-400"></div>;
+  const navigate = useNavigate();
+
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-center space-y-4 bg-indigo-950 text-white">
+      <h1 className="text-4xl font-bold">404</h1>
+      <p className="text-gray-500">Page not found</p>
+      <Button onClick={() => navigate(-1)}>Back</Button>
+    </main>
+  );
 };
