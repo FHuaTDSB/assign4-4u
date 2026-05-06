@@ -19,7 +19,7 @@ export type TvResponse = {
 export type ImageCell = {
   id: number;
   imagePath: string;
-  primaryText?: string;
+  primaryText: string;
   secondaryText?: string;
 };
 
